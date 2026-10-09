@@ -1,0 +1,33 @@
+{
+  "name": "speech-figure",
+  "version": "1.0.0",
+  "description": "Creative-coding project: live, local speech recognition that turns what you say into a transcript, subtitles and a silhouette made of words. Whisper in the browser, with .txt / .srt export.",
+  "author": "Sasha Nagiba",
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "setup": "node scripts/setup.mjs",
+    "setup:speech": "node scripts/setup.mjs --speech"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "4.3.1",
+    "@mediapipe/tasks-vision": "^1.1.0",
+    "mp4-muxer": "^5.2.2",
+    "webm-muxer": "^5.1.4"
+  },
+  "keywords": [
+    "creative-coding",
+    "speech-recognition",
+    "whisper",
+    "webgpu",
+    "generative-art",
+    "live-performance",
+    "typography",
+    "subtitles"
+  ]
+}

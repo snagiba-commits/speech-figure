@@ -1,0 +1,8 @@
+node_modules/
+.DS_Store
+exports/
+# downloaded by `npm run setup` / `npm run setup:speech`
+public/vendor/
+public/models/
+# your own optional sample clip
+public/sample/

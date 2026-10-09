@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speech Figure</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <main id="stageWrap">
+    <div id="stage">
+      <canvas id="cv"></canvas>
+      <div id="empty">
+        <p class="big">Drop a video here</p>
+        <p>or press “Load video” on the right</p>
+        <button id="sampleBtn" class="hidden">Open sample</button>
+      </div>
+      <div id="status" class="hidden"></div>
+    </div>
+    <div id="transport">
+      <button id="btnPlay" title="Space">▶ Play</button>
+      <button id="btnRestart">⟲ Restart</button>
+      <input type="range" id="scrub" min="0" max="1" step="0.01" value="0">
+      <span id="timeLbl">0:00.0 / 0:00.0</span>
+      <button id="btnFull">⛶ Fullscreen</button>
+    </div>
+    <div id="totalLbl"></div>
+  </main>
+  <aside id="panel">
+    <h1>Speech Figure</h1>
+    <div class="note lead">Live speech recognition on your own computer. Your words become subtitles, fill your silhouette and run between your hands.</div>
+    <button id="btnCam" class="camBtn primary">Start: camera + speech</button>
+    <button id="btnListen" class="camBtn">Listen only (microphone, no camera)</button>
+    <label class="file ghost"><input type="file" id="file" accept="video/*,.mov,.mp4,.m4v,.webm"><span>Or load a video file (visual effects only, no speech)</span></label>
+
+    <div id="speechBox" class="hidden">
+      <h2>Speech</h2>
+      <label class="row check perf"><input type="checkbox" id="speech"><label for="speech">Listen and transcribe</label></label>
+      <div class="row"><label>Speech engine</label><select id="speechEngine" class="full"><option value="whisper">On this computer (Whisper): Russian and English mixed</option><option value="chrome">Chrome: faster, but needs internet and one language</option></select></div>
+      <div class="row"><label>Whisper model</label><select id="speechModel" class="full"><option value="whisper-small">Accurate (slower)</option><option value="whisper-base">Fast (understands Russian less well)</option></select></div>
+      <div class="row"><label>Speech language</label><select id="speechLang" class="full"><option value="auto">Auto: Russian + English</option><option value="ru-RU">Russian</option><option value="en-US">English</option><option value="pt-PT">Português</option><option value="uk-UA">Ukrainian</option></select></div>
+      <div id="micBox" class="hidden"><div id="micBar"><i></i></div><div id="speechState" class="note"></div></div>
+      <div id="transcript" class="transcript"></div>
+      <div class="btns"><button id="trCopy">Copy</button><button id="trTxt">Save .txt</button><button id="trSrt">Save .srt</button><button id="trClear">Clear</button></div>
+      <label class="row check"><input type="checkbox" id="subs" checked><label for="subs">Large subtitles (plain font, over the picture)</label></label>
+      <div class="row"><label>Subtitle position</label><select id="subsPos" class="full"><option value="bottom">Bottom</option><option value="center">Center</option><option value="top">Top</option></select></div>
+      <label class="row check"><input type="checkbox" id="audioReact"><label for="audioReact">React to sound (microphone level drives the rain)</label></label>
+      <label class="row check perf"><input type="checkbox" id="performance"><label for="performance">Performance mode: fullscreen</label></label>
+      <div class="note">Turns on speech, subtitles and fullscreen (and hands and the word figure when the camera is on). Exit with Esc. Fullscreen any time: the button below or the F key.</div>
+      <button id="btnFull2">⛶ Fullscreen (F)</button>
+      <div class="note">Whisper runs entirely on your computer and sends no audio anywhere. The “Chrome” engine sends audio to Google servers.</div>
+      <label class="row check"><input type="checkbox" id="recAudio" checked><label for="recAudio">Record sound (microphone) with the video</label></label>
+      <div class="btns"><button id="btnRec">● Start recording</button><button id="btnCamStop">Stop</button></div>
+    </div>
+
+    <div id="camBox" class="hidden">
+      <h2>Camera effects</h2>
+      <label class="row check"><input type="checkbox" id="showFig" checked><label for="showFig">Show me as symbols</label></label>
+      <label class="row check"><input type="checkbox" id="hands" checked><label for="hands">Hands: your words run between your fingertips</label></label>
+      <label class="row check"><input type="checkbox" id="gest" checked><label for="gest">Gestures: palm pushes the rain away, fist gathers it, clap bursts</label></label>
+      <label class="row check"><input type="checkbox" id="smoke"><label for="smoke">Mouth smoke made of symbols (open your mouth)</label></label>
+      <label class="row check"><input type="checkbox" id="monitor"><label for="monitor">Small live-camera monitor in the corner (not recorded, hidden in fullscreen)</label></label>
+      <label class="row check"><input type="checkbox" id="mirror" checked><label for="mirror">Mirror (like a mirror)</label></label>
+      <div class="btns"><button id="btnBg">Capture background (for smoke)</button></div>
+      <div class="note">Tip: press “Capture background” and sit still in frame for 5 seconds so smoke becomes visible. Recording uses the preview resolution (set Quality → High).</div>
+    </div>
+    <div id="fileInfo" class="note">No video selected. The file stays on your computer and is never modified.</div>
+    <div id="errBox" class="err hidden"></div>
+    <div id="controls"></div>
+    <section id="exportSec">
+      <h2>Save video</h2>
+      <div id="fmtInfo" class="note"></div>
+      <button id="btnExport" class="primary" disabled>Save video</button>
+      <button id="btnCancel" class="hidden">Cancel</button>
+      <progress id="prog" class="hidden" max="1" value="0"></progress>
+      <div id="expStatus" class="note"></div>
+      <video id="result" controls class="hidden"></video>
+    </section>
+  </aside>
+</div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
